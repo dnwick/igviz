@@ -90,22 +90,52 @@
 		</style>
 	</head>
 	<body>
-		<div>
-			<div id="chart1">
+	<div role="tabpanel">
 
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active"><a href="#scatter-tab" aria-controls="home" role="tab" data-toggle="tab">Scatter</a></li>
+			<li role="presentation"><a href="#bar-tab" aria-controls="profile" role="tab" data-toggle="tab">Bar</a></li>
+		</ul>
+
+		<!-- Tab panes -->
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="scatter-tab">
+				<div id="scatter"></div>
+				<div>
+					<form action="" id="scatterForm">
+					</form>
+					<div class="buttonContainer">
+						<input type="button" onclick="redrawClicked('scatterForm', '#scatter')" value="Redraw">
+					</div>
+				</div>
 			</div>
-			<div id="chart2">
+			<div role="tabpanel" class="tab-pane" id="bar-tab">
+				<div id="bar"></div>
+				<div>
+					<form action="" id="barForm">
+					</form>
+					<div class="buttonContainer">
+						<input type="button" onclick="redrawClicked('barForm', '#bar')" value="Redraw">
+					</div>
+				</div>
 
-			</div>
+				<!--<div class="container">-->
+					<!--<div class="row">-->
+						<!--<div class="col-xs-5">-->
+							<!---->
+						<!--</div>-->
+						<!--<div class="col-xs-5">-->
+							<!---->
+						<!--</div>-->
 
-			<div>
-				<form name="plotConfigForm" action="" id="plotConfigFormId">
-				</form>
+					<!--</div>-->
+				<!--</div>-->
 			</div>
 		</div>
-		<div class="buttonContainer">
-			<input type="button" onclick="redrawClicked()" value="Redraw">
-		</div>
+
+	</div>
+
 
 		<script type="text/javascript">
 			/*
@@ -151,9 +181,8 @@
 			}
 			igViz.setDataTable(dataTable);
 
-			createForm(dataTable);
-
-
+			createForm(dataTable, '#scatterForm', "scatter");
+			createForm(dataTable, '#barForm', "bar");
 
 		</script>
 

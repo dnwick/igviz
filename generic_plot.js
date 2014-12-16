@@ -309,51 +309,45 @@ function configurePointLabels(group1, xScale, yScale) {
         });
 }
 
-function redrawClicked() {
-    console.log(document.plotConfigForm.xAxis.value);
+function redrawClicked(formID, targetChartId) {
+    var form = document.getElementById(formID)
+    //-1 means that dimension is disabled
     var chartConfig = {
         "title":"Title",
         "xLog":false,
         "yLog":false,
-
-        "xAxisData":document.plotConfigForm.xAxis.value,
-        "yAxisData":document.plotConfigForm.yAxis.value,
-        "pointColor":document.plotConfigForm.pointColor.value,
-        "pointSize":document.plotConfigForm.pointSize.value,
+        "xAxisData":form.xAxis.value,
+        "yAxisData":form.yAxis.value,
+        "pointColor":form.pointColor.value,
+        "pointSize":form.pointSize.value,
         "pointLabel":0,
         "chartWidth":600,
         "chartHight":400,
         "padding":60,
-        "chartType":"scatter"
+        "chartType":targetChartId.replace("#","")
     }
-    igViz.plot("#chart1", chartConfig);
 
-    var chartConfig1 = {
-        "title":"Title",
-        "xLog":false,
-        "yLog":false,
-
-        "xAxisData":0,
-        "yAxisData":1,
-        "pointColor":2,
-        "pointSize":3,
-        "pointLabel":0,
-        "chartWidth":600,
-        "chartHight":400,
-        "padding":60,
-        "chartType":"bar"
-    }
-    igViz.plot("#chart2", chartConfig1);
+    igViz.plot(targetChartId, chartConfig);
 }
 
-function createForm(dataTable) {
-    createSelectFeildWithColumnNames("xAxis", dataTable, 'N');
-    createSelectFeildWithColumnNames("yAxis", dataTable, 'N');
-    createSelectFeildWithColumnNames("pointColor", dataTable, 'N');
-    createSelectFeildWithColumnNames("pointSize", dataTable, 'N');
+function createForm(dataTable, formID, chartType) {
+    if(chartType == "scatter") {
+        createSelectFeildWithColumnNames("xAxis", dataTable, 'N', formID);
+        createSelectFeildWithColumnNames("yAxis", dataTable, 'N', formID);
+        createSelectFeildWithColumnNames("pointColor", dataTable, 'N', formID);
+        createSelectFeildWithColumnNames("pointSize", dataTable, 'N', formID);
+    }else if (chartType == "bar"){
+        createSelectFeildWithColumnNames("xAxis", dataTable, 'C', formID);
+        createSelectFeildWithColumnNames("yAxis", dataTable, 'N', formID);
+        createSelectFeildWithColumnNames("pointColor", dataTable, 'C', formID);
+        //here - means select nothing
+        createSelectFeildWithColumnNames("pointSize", dataTable, '-', formID);
+    }else{
+        console.error("Unknown chart type "+ chartType)
+    }
 }
 
-function createSelectFeildWithColumnNames(name, dataTable, type) {
+function createSelectFeildWithColumnNames(name, dataTable, type, formID) {
     //TODO populate feidls
     var selectedNames = [];											//Initialize empty array
     var namesLength = dataTable.metadata.names.length;										//Number of dummy data points to create
@@ -363,7 +357,7 @@ function createSelectFeildWithColumnNames(name, dataTable, type) {
         }
     }
 
-    var form = d3.select("#plotConfigFormId");
+    var form = d3.select(formID);
     form.append("text")
         .text(name);
 
