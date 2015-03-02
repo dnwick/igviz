@@ -1,0 +1,47 @@
+.panel {
+    margin-bottom: 20px;
+    margin-left: 31px;
+    margin-right: 24px;
+}
+
+.page-header {
+    padding-left: 13px;
+}
+
+.col-lg-3 {
+    width: 35%;
+}
+
+div.input-row-group-multiple-select:last-child span.input-row-group-addon-remove{
+    display: none;
+}
+
+span.input-row-group-addon-remove{
+    cursor: pointer;
+}
+
+div.input-column-group-multiple-select:last-child span.input-column-group-addon-remove{
+    display: none;
+}
+
+span.input-column-group-addon-remove{
+    cursor: pointer;
+}
+
+.input-group .form-control {
+    margin-bottom: 4px;
+
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    shape-rendering: crispEdges;
+    stroke: grey;
+    stroke-width: 2;
+}
+
+.axis text {
+    font-family: sans-serif;
+    font-size: 11px;
+}
